@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Konco Sego Sambel</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="icon" href="icon-192.png" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .btn-outline-light {
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+    .btn-outline-light:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    .menu-card {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .menu-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .menu-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.1s, background-color 0.1s;
+}
+
+.menu-card:active {
+  background-color: #2a2a2a;
+  transform: scale(0.96);
+}
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <!-- Login -->
+    <!-- Aplikasi -->
+    <div id="app" class="d-none">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Menu</h3>
+        <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+      </div>
+      <div id="menu-list" class="row g-3 mb-3"></div>
+
+      <div class="card bg-dark text-white border-secondary shadow-sm mb-3">
+  <div class="card-header bg-secondary text-white fw-bold">
+    Keranjang Pesanan
+  </div>
+  <div class="card-body p-2" id="pesanan">
+    <!-- Daftar item akan dirender di sini -->
+  </div>
+</div>
+
+
+      <div class="mb-2">
+        <label>Atas Nama</label>
+        <input type="text" id="atasNama" class="form-control" placeholder="Nama Pemesan" />
+      </div>
+
+      <div class="mb-2">
+        <label>Total</label>
+        <input type="text" id="total" class="form-control" readonly />
+      </div>
+      <div class="mb-2">
+        <label>Bayar</label>
+        <input type="number" id="bayar" class="form-control" placeholder="Nominal bayar" oninput="hitungKembalian()" />
+      </div>
+      <div class="mb-3">
+        <label>Kembalian</label>
+        <input type="text" id="kembali" class="form-control" readonly />
+      </div>
+
+      <button class="btn btn-warning w-100 mb-3" onclick="cetakStruk()">🖨 Cetak Struk</button>
+      <button class="btn btn-secondary w-100" onclick="tampilkanRekap()">📊 Lihat Rekapan</button>
+
+      <div id="rekapan" class="mt-4 d-none">
+        <h5>Rekap Penjualan</h5>
+        <ul id="rekapList" class="list-group"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      document.getElementById('app').classList.remove('d-none');
+      tampilkanMenu();
+    }
+  </script>
+</body>
+</html>
